@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.*;
@@ -37,7 +36,7 @@ public class GUI extends JFrame{
     private void init() {
         setContentPane(panel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(600,200,800,600);
+        this.setBounds(600,200,1000,800);
         this.setVisible(true);
     }
 

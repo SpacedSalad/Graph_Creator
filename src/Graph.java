@@ -1,12 +1,11 @@
 import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.*;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import static guru.nidi.graphviz.attribute.Rank.RankDir.*;
@@ -80,7 +79,6 @@ public class Graph {
         if (!linkExists) {
             links.set(links.indexOf(link), link);
         }
-
     }
 
     public void removeLink(Cls_Link link) {
@@ -97,15 +95,50 @@ public class Graph {
         this.font = font;
     }
 
-    public void exportGraph(String path, String name) {
+    public void exportGraph(String path) {
         try {
-            Graphviz.fromGraph(g).width(700).render(Format.PNG).toFile(new File(path + name + ".png"));
+            Graphviz.fromGraph(g).width(700).render(Format.PNG).toFile(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void saveGraph(String path) {
+        String name = path.substring(path.lastIndexOf("\\") + 1);
+        try(BufferedWriter out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name)))){
+            out.write("digraph {");
+            out.newLine();
+            for(Cls_Link LINK : links){
+                out.write(LINK.getNode1() + " -> " + LINK.getNode2() + ";");
+                out.newLine();
+            }
+            out.write("}");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void loadGraph(String path) {
+        String name = path.substring(path.lastIndexOf("\\") + 1);
+        String S_graph = "";
+        try(BufferedReader in = new BufferedReader(new FileReader(name))){
+            String line;
+            while((line = in.readLine()) != null){
+                S_graph += line + "\n";
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] lines = S_graph.split("\n");
+        for (String line : lines) {
+            if (line.contains("->")) {
+                String[] nodes = line.split("->");
+                String node1 = nodes[0].trim();
+                String node2 = nodes[1].trim().replace(";", "");
+                addLink(new Cls_Link(node1, node2));
+            }
+        }
     }
 }

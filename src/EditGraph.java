@@ -19,8 +19,8 @@ public class EditGraph extends JDialog {
     private JComboBox CB_Add_N2_Color;
     private JComboBox CB_Add_A_Color;
     private JComboBox CB_Add_A_Style;
-    private JButton setButton;
-    private JButton addButton;
+    private JButton B_Set;
+    private JButton B_Add;
     private JTabbedPane tabbedPane1;
     private JPanel P_EditLinks;
     private JTextField TF_Edit_N1;
@@ -29,11 +29,11 @@ public class EditGraph extends JDialog {
     private JComboBox CB_Edit_N2_Color;
     private JComboBox CB_Edit_A_Style;
     private JComboBox CB_Edit_A_Color;
-    private JButton editButton;
+    private JButton B_Edit;
     private JPanel P_RemoveLinks;
     private JTextField TF_Remove_N1;
     private JTextField TF_Remove_N2;
-    private JButton RemoveButton;
+    private JButton B_Remove;
     private Graph[] graph;
 
     private boolean isEdit = false;
@@ -42,15 +42,15 @@ public class EditGraph extends JDialog {
         this.graph = graph;
         init();
         initCB();
-        setButton.addActionListener(this::editGraph);
-        addButton.addActionListener(this::Add);
-        editButton.addActionListener(this::Edit);
-        RemoveButton.addActionListener(this::RemoveLink);
+        B_Set.addActionListener(this::editGraph);
+        B_Add.addActionListener(this::Add);
+        B_Edit.addActionListener(this::Edit);
+        B_Remove.addActionListener(this::RemoveLink);
     }
 
     private void init() {
         setContentPane(JPanel);
-        this.setBounds(700,300,400,300);
+        this.setBounds(700,300,600,500);
         setModal(true);
     }
 
@@ -59,29 +59,37 @@ public class EditGraph extends JDialog {
         CB_Dir.addItem("RIGHT_TO_LEFT");
         CB_Dir.addItem("TOP_TO_BOTTOM");
         CB_Dir.addItem("BOTTOM_TO_TOP");
+
         CB_Font.addItem("Arial");
         CB_Font.addItem("Times New Roman");
+
         CB_Add_A_Style.addItem("solid");
         CB_Add_A_Style.addItem("dotted");
         CB_Add_A_Style.addItem("dashed");
+
         JComboBox[] Add_CB_Colors = {CB_Add_N1_Color, CB_Add_N2_Color, CB_Add_A_Color};
         for (JComboBox CB_Color : Add_CB_Colors) {
             CB_Color.addItem("black");
             CB_Color.addItem("blue");
             CB_Color.addItem("green");
-            CB_Color.addItem("red");
             CB_Color.addItem("yellow");
+            CB_Color.addItem("orange");
+            CB_Color.addItem("red");
+            CB_Color.addItem("purple");
         }
         CB_Edit_A_Style.addItem("solid");
         CB_Edit_A_Style.addItem("dotted");
         CB_Edit_A_Style.addItem("dashed");
+
         JComboBox[] Edit_CB_Colors = {CB_Edit_N1_Color, CB_Edit_N2_Color, CB_Edit_A_Color};
         for (JComboBox CB_Color : Edit_CB_Colors) {
             CB_Color.addItem("black");
             CB_Color.addItem("blue");
             CB_Color.addItem("green");
-            CB_Color.addItem("red");
             CB_Color.addItem("yellow");
+            CB_Color.addItem("orange");
+            CB_Color.addItem("red");
+            CB_Color.addItem("purple");
         }
     }
 
